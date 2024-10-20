@@ -39,6 +39,7 @@ return {
         nls.builtins.diagnostics.hadolint,
         nls.builtins.diagnostics.phpcs,
         nls.builtins.diagnostics.luacheck,
+        nls.builtins.diagnostics.ruff,
         nls.builtins.formatting.phpcsfixer,
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.shfmt,
@@ -46,6 +47,7 @@ return {
         nls.builtins.formatting.terraform_fmt,
         nls.builtins.formatting.fish_indent,
         nls.builtins.formatting.markdownlint,
+        nls.builtins.formatting.black,
       })
     end,
   },
