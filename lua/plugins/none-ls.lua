@@ -32,17 +32,20 @@ return {
       opts.root_dir = opts.root_dir
         or require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git")
       opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.formatting.fish_indent,
         nls.builtins.diagnostics.fish,
+        nls.builtins.diagnostics.tflint,
+        nls.builtins.diagnostics.spellcheck,
+        nls.builtins.diagnostics.ansiblelint,
+        nls.builtins.diagnostics.hadolint,
+        nls.builtins.diagnostics.phpcs,
+        nls.builtins.diagnostics.luacheck,
+        nls.builtins.formatting.phpcsfixer,
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.shfmt,
         nls.builtins.formatting.prettier,
         nls.builtins.formatting.terraform_fmt,
-        nls.builtins.diagnostics.tflint,
+        nls.builtins.formatting.fish_indent,
         nls.builtins.formatting.markdownlint,
-        nls.builtins.diagnostics.spellcheck,
-        nls.builtins.diagnostics.ansiblelint,
-        nls.builtins.diagnostics.hadolint,
       })
     end,
   },
