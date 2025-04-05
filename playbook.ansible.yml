@@ -1,0 +1,4 @@
+- name: Create directory
+  file:
+    path: "{{ item }}"
+- name: Update
