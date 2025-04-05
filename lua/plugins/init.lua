@@ -6,4 +6,5 @@ return {
 	require("plugins.misc"),
 	require("plugins.mason"),
 	require("plugins.cmp"),
+	require("plugins.linting"),
 }

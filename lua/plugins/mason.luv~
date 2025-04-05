@@ -4,7 +4,7 @@ return {
 	-- 1. mason core - ¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿¿ lsp/dap/formatter/linter
 	{
 		"williamboman/mason.nvim",
-		cmd = "Mason", -- ¿¿¿¿¿¿¿¿¿ ¿¿ ¿¿¿¿¿¿¿ :mason
+		cmd = "mason", -- ¿¿¿¿¿¿¿¿¿ ¿¿ ¿¿¿¿¿¿¿ :mason
 		opts = { -- ¿¿¿¿¿¿¿¿ ¿¿¿¿¿ ¿¿¿¿¿¿¿¿ ¿ setup()
 			ui = {
 				border = "rounded", -- ¿¿¿¿¿¿¿¿¿¿¿: ¿¿¿¿¿ ¿¿¿¿¿
