@@ -1,33 +1,51 @@
 return {
-	{
-		"nvimtools/none-ls.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		lazy = false,
-		config = function()
-			local null_ls = require("null-ls")
+	"stevearc/conform.nvim",
+	event = { "BufWritePre" }, -- Запускать перед записью буфера (для format-on-save)
+	cmd = { "ConformInfo" },
+	opts = {
+		-- Настройте ваши форматтеры здесь
+		formatters_by_ft = {
+			lua = { "stylua" },
+			python = { "black", "isort" },
+			go = { "goimports", "gofmt" }, -- <--- Добавлено для Go
+			javascript = { "prettierd", "prettier" },
+			typescript = { "prettierd", "prettier" },
+			javascriptreact = { "prettierd", "prettier" },
+			typescriptreact = { "prettierd", "prettier" },
+			html = { "prettierd", "prettier" },
+			css = { "prettierd", "prettier" },
+			scss = { "prettierd", "prettier" },
+			json = { "prettierd", "prettier" },
+			yaml = { "prettierd", "prettier" },
+			toml = { "taplo" }, -- <--- Добавлено для TOML (см. ниже)
+			markdown = { "prettierd", "prettier" },
+			sh = { "shfmt" },
+			bash = { "shfmt" },
+			-- ["_"] = { "trim_whitespace" }, -- Можно оставить для всех файлов
+		},
+		-- Настройка форматирования при сохранении
+		format_on_save = {
+			-- Используйте timeout_ms для предотвращения зависаний при долгом форматировании
+			timeout_ms = 500,
+			-- Используйте lsp_fallback = true, если хотите использовать LSP форматирование,
+			-- если conform не нашел форматтер для данного типа файла
+			lsp_fallback = true,
+		},
 
-			local sources = {
-				-- 🔥 Форматтеры
-				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.formatting.black,
-				null_ls.builtins.formatting.prettier.with({
-					filetypes = { "javascript", "typescript", "json", "yaml" },
-				}),
-				null_ls.builtins.formatting.terraform_fmt,
-				null_ls.builtins.formatting.yamlfmt,
-				null_ls.builtins.formatting.shfmt,
-				null_ls.builtins.formatting.clang_format,
-				null_ls.builtins.formatting.gofmt,
-			}
-
-			null_ls.setup({ sources = sources })
-
-			-- 🛠 Автоформат при сохранении
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				callback = function()
-					vim.lsp.buf.format({ async = false })
-				end,
-			})
-		end,
+		-- Можно добавить кастомные форматтеры, если их нет по умолчанию
+		-- formatters = {
+		--   my_formatter = {
+		--     cmd = "my_cmd",
+		--     args = {"--stdin"},
+		--     stdin = true,
+		--   }
+		-- }
 	},
+	init = function()
+		-- Опционально: добавить бинд для ручного форматирования
+		-- Бинд будет добавлен в keymaps.lua, здесь только для примера
+		-- vim.keymap.set({ "n", "v" }, "<leader>f", function()
+		--   require("conform").format({ async = true, lsp_fallback = true })
+		-- end, { desc = "Format buffer" })
+	end,
 }

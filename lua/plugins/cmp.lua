@@ -1,5 +1,15 @@
 return {
 	{
+		"onsails/lspkind.nvim",
+		config = function()
+			-- Не обязательно, но можно настроить, если хотите кастомные символы
+			require("lspkind").init({
+				-- preset = 'codicons', -- default: 'default'
+				-- mode = 'symbol_text', -- default: 'symbol'
+			})
+		end,
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -57,7 +67,7 @@ return {
 					{ name = "nvim_lua" },
 				}),
 				formatting = {
-					format = lspkind.cmp_format({
+					format = require("lspkind").cmp_format({
 						mode = "symbol_text",
 						maxwidth = 50,
 						ellipsis_char = "...",

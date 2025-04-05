@@ -15,7 +15,7 @@ return {
 					highlight_opened_files = "icon",
 				},
 				filters = { dotfiles = false, custom = { ".git", "node_modules", "__pycache__" } },
-				git = { ignore = false },       -- ❗ Показывать файлы из .gitignore
+				git = { ignore = false }, -- ❗ Показывать файлы из .gitignore
 				view = { width = 30, side = "left", adaptive_size = true }, -- ✅ Исправлено
 				actions = { open_file = { quit_on_open = true } },
 			})

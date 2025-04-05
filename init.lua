@@ -40,7 +40,7 @@ vim.api.nvim_set_option("winblend", 15) -- Полупрозрачность вс
 vim.o.hlsearch = true
 vim.cmd("highlight Search guifg=#ffffff guibg=#ff007c gui=bold")
 vim.cmd("highlight IncSearch guifg=#ffffff guibg=#ff007c gui=bold")
-vim.o.number = true -- Показывать номера строк
+vim.o.number = true          -- Показывать номера строк
 vim.o.relativenumber = false -- ❌ Отключаем относительную нумерацию
 -- GitLab CI
 vim.api.nvim_create_autocmd("BufRead", {

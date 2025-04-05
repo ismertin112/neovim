@@ -1,6 +1,5 @@
 from typing import DefaultDict
 
-
 DefaultDict = DefaultDict[int, int]
 
 

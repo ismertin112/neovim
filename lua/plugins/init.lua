@@ -4,4 +4,6 @@ return {
 	require("plugins.tools"),
 	require("plugins.format"),
 	require("plugins.misc"),
+	require("plugins.mason"),
+	require("plugins.cmp"),
 }
