@@ -46,7 +46,7 @@ return {
 				"taplo", -- toml (¿¿¿¿¿ ¿¿¿¿¿¿¿¿¿¿¿¿ ¿¿¿ ¿¿¿¿¿¿¿¿¿/¿¿¿¿¿¿)
 				"terraformls", -- terraform
 				"yamlls", -- yaml
-				-- "lemminx",    -- xml (¿¿¿¿ ¿¿¿¿¿)
+				"lemminx", -- xml (¿¿¿¿ ¿¿¿¿¿)
 			}
 
 			return {
@@ -65,7 +65,7 @@ return {
 				-- ¿¿¿ ¿¿¿¿¿¿ ¿¿¿¿¿ ¿¿¿ ¿¿¿, ¿¿¿ ¿¿¿ ¿¿¿ ¿¿¿¿¿¿¿¿¿¿ ¿¿ ¿¿¿¿ lsp
 				local map = vim.keymap.set
 				local opts_lsp = { buffer = bufnr, noremap = true, silent = true }
-				map("n", "k", vim.lsp.buf.hover, opts_lsp)
+				map("n", "K", vim.lsp.buf.hover, opts_lsp)
 				map("n", "gd", vim.lsp.buf.definition, opts_lsp)
 				map("n", "gd", vim.lsp.buf.declaration, opts_lsp)
 				map("n", "gi", vim.lsp.buf.implementation, opts_lsp)
@@ -73,7 +73,7 @@ return {
 				map("n", "gr", vim.lsp.buf.references, opts_lsp)
 				map("n", "<leader>rn", vim.lsp.buf.rename, opts_lsp) -- rename
 				map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts_lsp) -- code action
-				map("n", "<leader>e", vim.diagnostic.open_float, opts_lsp) -- ¿¿¿¿¿¿/¿¿¿¿¿¿¿¿¿¿¿¿¿¿
+				map("n", "<leader>d", vim.diagnostic.open_float, opts_lsp) -- ¿¿¿¿¿¿/¿¿¿¿¿¿¿¿¿¿¿¿¿¿
 				map("n", "[d", vim.diagnostic.goto_prev, opts_lsp) -- ¿¿¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿
 				map("n", "]d", vim.diagnostic.goto_next, opts_lsp) -- ¿¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿
 
@@ -91,7 +91,6 @@ return {
 				--      callback = vim.lsp.buf.clear_references,
 				--   })
 				-- end
-				-- print("lsp attached:", client.name, "to buffer:", bufnr)
 			end
 
 			local lspconfig = require("lspconfig")
@@ -182,6 +181,7 @@ return {
 				"yamllint", -- yaml
 				"markdownlint", -- markdown
 				"ansible-lint", -- ansible
+				"revive",
 
 				-- ¿¿¿¿¿¿ ¿¿¿¿¿¿¿ (¿¿¿¿¿¿¿):
 				-- "codespell",   -- ¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿¿¿¿¿ ¿ ¿¿¿¿

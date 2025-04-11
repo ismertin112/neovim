@@ -40,11 +40,11 @@ return {
 		popup_border_style = "rounded",
 		enable_git_status = true,
 		enable_diagnostics = true,
-		-- default_component_configs = { -- Настройка отображения
-		--   indent = { indent_size = 2 },
-		--   icon = { default = "?", folder_closed = "", folder_open = "" }, -- Пример иконок
-		--   git_status = { symbols = { added = "A", modified = "M", deleted = "D", ... } },
-		-- },
+		default_component_configs = { -- Настройка отображения
+			indent = { indent_size = 2 },
+			icon = { default = "?", folder_closed = "", folder_open = "" }, -- Пример иконок
+			git_status = { symbols = { added = "A", modified = "M", deleted = "D", ... } },
+		},
 		window = {
 			position = "left", -- Позиция (left, right, float)
 			width = 30, -- Ширина панели
@@ -62,7 +62,6 @@ return {
 				["S"] = "open_split",
 				["s"] = "open_vsplit",
 				-- ["t"] = "open_tabnew", -- Открыть в новой вкладке
-				["w"] = "open_with_window_picker",
 				["a"] = "add",
 				["A"] = "add_directory",
 				["d"] = "delete",
@@ -78,7 +77,7 @@ return {
 				["<"] = "prev_source", -- Переключиться на предыдущий источник (файлы/буферы/git)
 				[">"] = "next_source", -- Переключиться на следующий источник
 				["H"] = "toggle_hidden", -- Показать/скрыть скрытые файлы
-				["gf"] = "goto_parent_dir", -- Перейти в родительскую директорию
+				--["gf"] = "goto_parent_dir", -- Перейти в родительскую директорию
 				-- ... добавьте свои или переопределите стандартные
 			},
 		},

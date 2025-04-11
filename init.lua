@@ -1,10 +1,9 @@
--- init.lua
+-- init.luaini
 -- Главный конфигурационный файл Neovim
 
 -- [[ Отключение стандартных плагинов (если нужно) ]]
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
-
 -- <<<<<<< ВАЖНО: Определение лидеров ДО lazy.nvim >>>>>>>>>
 vim.g.mapleader = " " -- Пробел - самый популярный лидер
 vim.g.maplocalleader = "\\" -- Бэкслэш для локального лидера (если нужен)
@@ -16,9 +15,7 @@ pcall(require, "core.options")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local lazy_repo = "https://github.com/folke/lazy.nvim.git"
 if not vim.loop.fs_stat(lazypath) then
-	print("Bootstraping lazy.nvim...")
 	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazy_repo, lazypath })
-	print("lazy.nvim installed.")
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -39,7 +36,6 @@ require("lazy").setup("plugins", {
 		},
 	},
 })
-print("lazy.nvim setup complete.")
 
 -- [[ 3. Горячие Клавиши (Keymaps) ]]
 pcall(require, "core.keymaps") -- Загружаем ПОСЛЕ lazy.setup
@@ -52,5 +48,3 @@ pcall(require, "core.keymaps") -- Загружаем ПОСЛЕ lazy.setup
 
 -- [[ 5. Автокоманды (Autocmds) ]]
 -- pcall(require, 'core.autocmds')
-
-print("Neovim configuration loaded successfully!")

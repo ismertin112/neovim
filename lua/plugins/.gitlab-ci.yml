@@ -1,7 +1,0 @@
-stages:
-  - build
-  - test
-test:
-  stage: test
-  script:
-    - echo "test"

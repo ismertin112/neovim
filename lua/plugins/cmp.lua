@@ -138,7 +138,7 @@ return {
 					{ name = "nvim_lsp_signature_help" }, -- Подсказка сигнатуры
 					{ name = "luasnip" },
 					-- { name = "codeium" }, -- Раскомментируйте, если включите Codeium
-					{ name = "buffer",                 keyword_length = 3 }, -- Искать в буфере после 3 символов
+					{ name = "buffer", keyword_length = 3 }, -- Искать в буфере после 3 символов
 					{ name = "path" },
 				}),
 
@@ -154,8 +154,7 @@ return {
 					format = function(entry, vim_item)
 						-- Используем lspkind для иконок LSP
 						if vim_item.kind ~= "" and vim_item.kind ~= nil then -- Проверка, что kind не пустой
-							vim_item.kind = lspkind.presets.default[vim_item.kind] or
-							vim_item.kind
+							vim_item.kind = lspkind.presets.default[vim_item.kind] or vim_item.kind
 						end
 
 						-- Добавляем префикс источника (e.g., [LSP], [SNIP])
@@ -192,8 +191,6 @@ return {
 					{ name = "cmdline" }, -- Команды nvim
 				}),
 			})
-
-			print("nvim-cmp configured successfully") -- Отладочное сообщение
 		end,
 	},
 
