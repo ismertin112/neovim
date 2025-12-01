@@ -24,6 +24,9 @@ require("lazy").setup({ import = "plugins" }, {
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    pcall(require, "ai").setup()
+    local ok, ai = pcall(require, "ai")
+    if ok and ai and type(ai.setup) == "function" then
+      ai.setup()
+    end
   end,
 })
