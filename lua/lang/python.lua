@@ -30,6 +30,8 @@ function M.pyright_settings()
       pythonPath = python_path(),
       analysis = {
         autoImportCompletions = true,
+        autoSearchPaths = true,
+        diagnosticMode = "workspace",
         typeCheckingMode = "basic",
         useLibraryCodeForTypes = true,
       },
