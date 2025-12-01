@@ -1,15 +1,5 @@
 local M = {}
 
-local function format_on_save(bufnr)
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = bufnr,
-    group = vim.api.nvim_create_augroup("LspFormat" .. bufnr, { clear = true }),
-    callback = function()
-      vim.lsp.buf.format({ bufnr = bufnr })
-    end,
-  })
-end
-
 local function buf_map(bufnr, mode, lhs, rhs, desc)
   vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
 end
@@ -25,16 +15,9 @@ M.on_attach = function(client, bufnr)
   buf_map(bufnr, "n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
   buf_map(bufnr, "n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
   buf_map(bufnr, "n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-  buf_map(bufnr, "n", "<leader>lf", function()
-    vim.lsp.buf.format({ async = true })
+  buf_map(bufnr, "n", "<leader>cf", function()
+    require("conform").format({ async = true, lsp_fallback = false })
   end, "Format buffer")
-
-  if client.supports_method("textDocument/formatting") then
-    local ft = vim.bo[bufnr].filetype
-    if ft == "python" or ft == "terraform" or ft == "hcl" then
-      format_on_save(bufnr)
-    end
-  end
 end
 
 M.capabilities = vim.tbl_deep_extend(
