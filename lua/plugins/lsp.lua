@@ -9,6 +9,16 @@ return {
     opts = { ui = { border = "rounded" } },
   },
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason.nvim" },
+    cmd = { "MasonToolsInstall", "MasonToolsUpdate" },
+    opts = {
+      ensure_installed = { "ruff", "tflint" },
+      run_on_start = true,
+      auto_update = true,
+    },
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "mason.nvim" },
     opts = {
