@@ -5,7 +5,7 @@ function M.setup()
 
   conform.setup({
     formatters_by_ft = {
-      python = { "ruff_format" },
+      python = { "ruff_fix", "ruff_format" },
       terraform = { "terraform_fmt" },
       hcl = { "terraform_fmt" },
       lua = { "stylua" },
