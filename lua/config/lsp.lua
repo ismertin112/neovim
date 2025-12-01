@@ -12,21 +12,24 @@ M.on_attach = function(client, bufnr)
 	buf_map(bufnr, "n", "K", vim.lsp.buf.hover, "Hover")
 	buf_map(bufnr, "n", "<leader>rn", vim.lsp.buf.rename, "Rename")
 	buf_map(bufnr, { "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
-	buf_map(bufnr, "n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
-	buf_map(bufnr, "n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
-	buf_map(bufnr, "n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-	buf_map(bufnr, "n", "<leader>cf", function()
-		require("conform").format({ async = true, lsp_fallback = false })
-	end, "Format buffer")
+        buf_map(bufnr, "n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
+        buf_map(bufnr, "n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
+        buf_map(bufnr, "n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+        buf_map(bufnr, "n", "<leader>cf", function()
+                require("conform").format({ async = true, lsp_fallback = false })
+        end, "Format buffer")
 
-	if
-		vim.bo[bufnr].filetype == "python"
-		and client.supports_method
-		and client:supports_method("textDocument/codeAction")
-	then
-		local group = vim.api.nvim_create_augroup("PythonOrganizeImports", { clear = false })
-		vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
+        if client.server_capabilities.documentSymbolProvider then
+                local ok, navic = pcall(require, "nvim-navic")
+                if ok then
+                        navic.attach(client, bufnr)
+                end
+        end
+
+        if vim.bo[bufnr].filetype == "python" and client:supports_method("textDocument/codeAction") then
+                local group = vim.api.nvim_create_augroup("PythonOrganizeImports", { clear = false })
+                vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+                vim.api.nvim_create_autocmd("BufWritePre", {
 			group = group,
 			buffer = bufnr,
 			callback = function()

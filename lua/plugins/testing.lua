@@ -22,6 +22,10 @@ return {
             args = { "-q" },
           }),
         },
+        output = { open_on_run = true, enter = true },
+        summary = { follow = true, open = "botright vsplit" },
+        status = { virtual_text = true, signs = true },
+        floating = { border = "rounded" },
       })
     end,
   },

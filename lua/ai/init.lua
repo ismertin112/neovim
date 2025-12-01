@@ -46,6 +46,16 @@ local function send(provider, prompt)
   end)
 end
 
+local function docstring_prompt(text)
+  return table.concat({
+    "Generate a concise docstring for the highlighted function.",
+    "Use the same language as the source, document params and return values,",
+    "and prefer a format compatible with PEP 257.",
+    "Code:",
+    text,
+  }, "\n")
+end
+
 function M.setup()
   vim.api.nvim_create_user_command("AIChat", function(opts)
     local prompt = opts.args ~= "" and opts.args or get_selection_or_buffer()
@@ -59,6 +69,11 @@ function M.setup()
   vim.keymap.set("n", "<leader>aa", function()
     send(vim.g.ai_provider or os.getenv("AI_PROVIDER") or "gigachat", get_selection_or_buffer())
   end, { desc = "Send buffer to AI" })
+
+  vim.keymap.set("v", "<leader>ad", function()
+    local prompt = docstring_prompt(get_selection_or_buffer())
+    send(vim.g.ai_provider or os.getenv("AI_PROVIDER") or "gigachat", prompt)
+  end, { desc = "Generate docstring with AI" })
 end
 
 return M
