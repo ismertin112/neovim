@@ -13,7 +13,7 @@ return {
     dependencies = { "mason.nvim" },
     cmd = { "MasonToolsInstall", "MasonToolsUpdate" },
     opts = {
-      ensure_installed = { "ruff", "tflint" },
+      ensure_installed = { "ruff", "tflint", "terraform", "stylua" },
       run_on_start = true,
       auto_update = true,
     },
@@ -22,7 +22,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "mason.nvim" },
     opts = {
-      ensure_installed = { "pyright", "terraformls", "lua_ls" },
+      ensure_installed = { "pyright", "ruff_lsp", "terraformls", "tflint", "lua_ls" },
       automatic_installation = true,
     },
   },
@@ -37,7 +37,15 @@ return {
         pyright = {
           settings = python.pyright_settings(),
         },
+        ruff_lsp = {
+          init_options = {
+            settings = {
+              args = {},
+            },
+          },
+        },
         terraformls = {},
+        tflint = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -56,23 +64,6 @@ return {
           }, servers[server] or {})
           lspconfig[server].setup(opts)
         end,
-      })
-    end,
-  },
-  {
-    "nvimtools/none-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
-    config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.formatting.ruff_format,
-          null_ls.builtins.diagnostics.ruff.with({ command = "ruff" }),
-          null_ls.builtins.formatting.terraform_fmt,
-          null_ls.builtins.diagnostics.tflint,
-        },
-        on_attach = lsp.on_attach,
       })
     end,
   },
