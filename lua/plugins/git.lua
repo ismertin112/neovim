@@ -33,4 +33,14 @@ return {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
     },
   },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff current branch" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "File history" },
+      { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+    },
+    opts = { view = { merge_tool = { layout = "diff3_mixed" } } },
+  },
 }

@@ -24,17 +24,19 @@ local function python_path()
   return "python3"
 end
 
-function M.pyright_settings()
+function M.pyright_settings(analysis_overrides)
+  local analysis = vim.tbl_deep_extend("force", {
+    autoImportCompletions = true,
+    autoSearchPaths = true,
+    diagnosticMode = "workspace",
+    typeCheckingMode = "basic",
+    useLibraryCodeForTypes = true,
+  }, analysis_overrides or {})
+
   return {
     python = {
       pythonPath = python_path(),
-      analysis = {
-        autoImportCompletions = true,
-        autoSearchPaths = true,
-        diagnosticMode = "workspace",
-        typeCheckingMode = "basic",
-        useLibraryCodeForTypes = true,
-      },
+      analysis = analysis,
     },
   }
 end

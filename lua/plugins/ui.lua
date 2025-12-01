@@ -15,13 +15,25 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "SmiteshP/nvim-navic" },
     opts = {
       options = { theme = "catppuccin", globalstatus = true, section_separators = "", component_separators = "|" },
       sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
-        lualine_c = { { "filename", path = 1 } },
+        lualine_c = {
+          { "filename", path = 1 },
+          {
+            function()
+              local navic = require("nvim-navic")
+              return navic.get_location()
+            end,
+            cond = function()
+              local ok, navic = pcall(require, "nvim-navic")
+              return ok and navic.is_available()
+            end,
+          },
+        },
         lualine_x = { "diagnostics", "filetype" },
         lualine_y = { "progress" },
         lualine_z = { "location" },
@@ -59,16 +71,25 @@ return {
     end,
   },
   {
-    "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    cmd = "Neotree",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
     opts = {
-      view = { width = 32 },
-      filters = { dotfiles = false },
-      renderer = { highlight_git = true, indent_markers = { enable = true } },
+      close_if_last_window = true,
+      default_component_configs = {
+        indent = { padding = 0, with_markers = true },
+        git_status = { symbols = { renamed = "󰁕", unstaged = "󰄱" } },
+      },
+      filesystem = {
+        bind_to_cwd = false,
+        filtered_items = { hide_dotfiles = false, hide_gitignored = false },
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+      },
     },
     keys = {
-      { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle file tree" },
+      { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
     },
   },
   {
@@ -91,7 +112,14 @@ return {
     dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
     opts = {
       presets = { bottom_search = true, lsp_doc_border = true },
-      lsp = { progress = { enabled = false } },
+      lsp = {
+        progress = { enabled = false },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
     },
   },
   {
@@ -112,11 +140,31 @@ return {
       local actions = require("telescope.actions")
       return {
         defaults = {
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob",
+            "!.git",
+          },
           mappings = {
             i = {
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
             },
+          },
+        },
+        pickers = {
+          find_files = { find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" } },
+          live_grep = {
+            additional_args = function()
+              return { "--hidden", "--glob", "!.git" }
+            end,
           },
         },
       }
