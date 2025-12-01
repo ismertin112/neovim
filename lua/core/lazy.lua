@@ -8,6 +8,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({ import = "plugins" }, {
   ui = { border = "rounded" },
   install = { colorscheme = { "catppuccin", "tokyonight" } },
+  rocks = { enabled = false },
   performance = {
     rtp = {
       disabled_plugins = {
