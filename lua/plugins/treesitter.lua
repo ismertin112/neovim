@@ -5,7 +5,7 @@ return {
     dependencies = { "HiPhish/nvim-ts-rainbow2" },
     event = { "BufReadPost", "BufNewFile" },
     opts = function()
-      local rainbow = require("ts-rainbow")
+      local ok, rainbow = pcall(require, "ts-rainbow")
 
       return {
         ensure_installed = {
@@ -25,11 +25,13 @@ return {
         highlight = { enable = true },
         indent = { enable = true },
         incremental_selection = { enable = true },
-        rainbow = {
-          enable = true,
-          query = { "rainbow-parens" },
-          strategy = rainbow.strategy.global,
-        },
+        rainbow = ok
+            and {
+              enable = true,
+              query = { "rainbow-parens" },
+              strategy = rainbow.strategy.global,
+            }
+          or { enable = false },
       }
     end,
     config = function(_, opts)
