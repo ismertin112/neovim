@@ -47,14 +47,4 @@ opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
 
--- Create undo directory if missing
 pcall(vim.fn.mkdir, opt.undodir:get(), "p")
-
--- Compatibility shim for plugins still calling the deprecated
--- vim.lsp.buf_get_clients() helper. The function will be removed in
--- Neovim 0.12, so delegate calls to the modern replacement.
-if vim.lsp and vim.lsp.get_clients then
-  vim.lsp.buf_get_clients = function(...)
-    return vim.lsp.get_clients(...)
-  end
-end
