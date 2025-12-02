@@ -12,6 +12,7 @@ return {
       vim.cmd.colorscheme("catppuccin")
     end,
   },
+  { "echasnovski/mini.icons", version = false },
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
